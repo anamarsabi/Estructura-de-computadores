@@ -1,6 +1,8 @@
 # PRÁCTICAS ESTRUCTURA DE COMPUTADORES
 # ENSAMBLADOR Básico
 
+*http://ocw.uc3m.es/ingenieria-telematica/arquitectura-de-ordenadores/lecturas/html*
+
 *Compilador* y *ensamblador* son términos distintos.
 **Compilador** es el programa encargado de traducir de un lenguaje de programación a otro.
 **Ensamblador** realiza la tarea del compilador pero especificamente la traducción es de lenguaje ensamblador a lenguaje máquina.
@@ -105,6 +107,7 @@ La instrucción `push` recibe un único operando y manipula siempre operandos de
 La instruccion `pop` recibe un único operando y manipula siempre operandos de 32 bits. El procesador toma el valor del registro puntero de pila y mueve ese dato al lugar que le indique el operando de la instrucción.  Tras esta transferencia, se suma el valor 4 al registro puntero de pila. 
 
 **XCHG: Instrucción de intercambio**
+
 **`xchg <registro> <registro>` o `xchg <registro> <dato>`** -> Intercambia los valores de sus operandos. Al menos uno de los operandos debe ser de tipo registro. Esta instrucción utiliza un reguistro temporal interno del procesador para intercambiar los operandos.
 
 Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los flags de la palabra de estado.
