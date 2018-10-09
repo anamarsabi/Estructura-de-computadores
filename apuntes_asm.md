@@ -79,14 +79,19 @@ Todo programa ensamblador debe comenzar y terminar con isntrucciones de `push` y
 **MOV**
 **`mov <source>, <dest>`**
 `mov %regA, %regB` -> Mueve el contenido de %regA al registro %regB
+
 `mov $inm, %reg` -> Mueve inm (valor numérico) al registro %reg
+
 `mov %reg, mem` -> Mueve el contenido de %reg a la posición mem
+
 `movs $inm, mem` -> Mueve inm(valor numérico codificado con los bits especificados por el sufijo s *(movs)*) al dato cuyo tamaño está especificado por el sufijo s y que está almacenado  en mem. 
 
 **PUSH: Instrucción de carga sobre la pila**
 **`push <algo`**
 `push %reg` -> almacena el contenido de %reg en la posición anterior a la que apunta el puntero de la pila
+
 `push mem` -> almacena el dato de 32 bits que está almacenado a partir de la posición mem en la posición anterior a la que apunta el puntero de pila
+
 `push $inm` -> Almacena inm(valor numérico codificado con 32 bits) en la posición anterior a la que apunta el puntero de pila.
 
 La instrucción `push` recibe un único operando y manipula siempre operandos de 32 bits, por lo tanto no se usan sufijos de tamaño. El procesador toma el valor del registro puntero de pila, le resta 4 y almacena el operando dado en los cuatro bytes de memoria a partir de la posición del puntero de pila.
@@ -94,6 +99,7 @@ La instrucción `push` recibe un único operando y manipula siempre operandos de
 **POP: Instrucción de descarga de la pila**
 **`pop <algo>`**
 `pop %reg` -> Almacena el contenido al que apunta el puntero de pila en %reg. Modifica el puntero a la cima para que apunte a la siguiente posición de la pila.
+
 `pop mem` -> Almacena los 32 bits a los que apunta el puntero de pila a partir de la posición mem. Modifica el puntero a la cima para que apunte a la siguiente posición de la pila.
 
 La instruccion `pop` recibe un único operando y manipula siempre operandos de 32 bits. El procesador toma el valor del registro puntero de pila y mueve ese dato al lugar que le indique el operando de la instrucción.  Tras esta transferencia, se suma el valor 4 al registro puntero de pila. 
