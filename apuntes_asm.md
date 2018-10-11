@@ -88,8 +88,11 @@ Todo programa ensamblador debe comenzar y terminar con isntrucciones de `push` y
 
 `movs $inm, mem` -> Mueve inm(valor numérico codificado con los bits especificados por el sufijo s *(movs)*) al dato cuyo tamaño está especificado por el sufijo s y que está almacenado  en mem. 
 
+
 **PUSH: Instrucción de carga sobre la pila**
+
 **`push <algo`**
+
 `push %reg` -> almacena el contenido de %reg en la posición anterior a la que apunta el puntero de la pila
 
 `push mem` -> almacena el dato de 32 bits que está almacenado a partir de la posición mem en la posición anterior a la que apunta el puntero de pila
@@ -98,13 +101,17 @@ Todo programa ensamblador debe comenzar y terminar con isntrucciones de `push` y
 
 La instrucción `push` recibe un único operando y manipula siempre operandos de 32 bits, por lo tanto no se usan sufijos de tamaño. El procesador toma el valor del registro puntero de pila, le resta 4 y almacena el operando dado en los cuatro bytes de memoria a partir de la posición del puntero de pila.
 
+
 **POP: Instrucción de descarga de la pila**
+
 **`pop <algo>`**
+
 `pop %reg` -> Almacena el contenido al que apunta el puntero de pila en %reg. Modifica el puntero a la cima para que apunte a la siguiente posición de la pila.
 
 `pop mem` -> Almacena los 32 bits a los que apunta el puntero de pila a partir de la posición mem. Modifica el puntero a la cima para que apunte a la siguiente posición de la pila.
 
 La instruccion `pop` recibe un único operando y manipula siempre operandos de 32 bits. El procesador toma el valor del registro puntero de pila y mueve ese dato al lugar que le indique el operando de la instrucción.  Tras esta transferencia, se suma el valor 4 al registro puntero de pila. 
+
 
 **XCHG: Instrucción de intercambio**
 
@@ -112,35 +119,52 @@ La instruccion `pop` recibe un único operando y manipula siempre operandos de 3
 
 Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los flags de la palabra de estado.
 
+
 ## Instrucciones aritméticas
 
 **ADD**
+
 **`add <sumando>, <sumando_destino>`** -> Recibe dos operando, los suma y los guarda en el segundo sumando(<sumando_destino>). Se machaca y se pierde el valor del segundo operando. 
 
+
 **SUB**
+
 **`sub <op1>, <op2>`** -> Resta <op2> - <op1> y el resultado se almacena en <op2>.
 
+
 **INC** Y **DEC**
+
 **`inc <algo>`** -> Esta instrucción recibe un único operando al que le suma el valor 1. Análogamente decrementando en uno el operando dado en el caso de **`dec <algo`**
 
+
 **NEG**
+
 **`neg <algo>`** -> Instrucción de cambio de signo, la operación que realiza es equivalente a multiplicar por -1. Se asume que el operando está codificado en complemento a 2. Esta instrucción asigna directamente el valor 1 al flag de acarreo.
 
 **MUL**
+
 **`mul <algo>`** -> Instrucción de multiplicación sin signo. Esta instrucción tiene dos operandos pero el segundo de ellos es implícito y dependiendo de los datos que maneje la operación serán: %al(8 bits = 1 Byte), %ax (2 bytes = 1 word) y %eax (4 bytes = Doubleword). Esta instrucción multiplica <algo>  por esos registros dependiendo del caso y almacena el resultado en %ax (si se multiplican dos números de 8 bits), %dx:%ax (si se multiplican dos números de 16 bits se almacena en el registro de 32bits resultante de concatenar los registros %dx y %ax, con %dx como parte más significativa), %edx:%eax (si se multiplican dos números de 32 bits se almacena en el registro de 64 bits resultante de concatenar estos dos registros con %edx como parte más significativa).
 
 Si hay registros de 32 bits... ¿por qué se almacena el resultado de multiplicar dos números de 16 bits concatenando registros de 16 bits? Razones históricas, había procesadores anteriores que sólo tenían registros de 16 bits y para almacenar 32 bits había que hacer esta concatenación. Para mantener el lenguaje máquina se ha mantenido esto.
 
+
 **DIV**
+
 **`div <algo>`** -> Instrucción de división sin signo. Esta instrucción sólo especifica el divisor, el dividendo es implícito y tiene tamaño doble al del divisor. El dividendo se obiene de %ax, %dx:%ax ó %edx:%eax (16 bits, 32 bits o 64 bits respectivamente). La instrucción devuelve dos resultados: cociente y resto. El cociente se almacena en %al, %ax o %eax. El resto se almacena en %ah, %dx o %edx.
 
+
 **IMUL**
+
 Instrucción de multiplicación con signo
 **`imul <algo>`** -> igual que mul.
+
 **`imul <factor1>, <factor2>`** -> El segundo operador es el destino donde se guarda el resultado y además este <factor2> debe ser uno de los registros de propósito general. Los dos operandos son del mismo tamaño, luego el resultado también se guarda en un registro del mismo tamaño que los factores, con lo cual hay un mayor riesgo de overflow. 
+
 **`imul <factor1>, <factor2>, <factor3>`** -> <factor1> debe ser una constante. <factor2> debe ser una posición de memoria o un registro. <factor3> es un registro de propósito general donde se guarda el resultado. En este caso pasa lo mismo con los tamaños que en el anterior. Como se solventa esto es realizando la multiplicación y obteniendo todos los bits del resultado y posteriormente los trunca para almacenar en destino.
 
+
 **IDIV**
+
 **`idiv <algo>`** -> Instrucción de división con signo. El comportamiento es igual que DIV (instrucción de división con signo) pero los factores son números enteros. 
 
 
