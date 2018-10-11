@@ -132,7 +132,16 @@ Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los fl
 Si hay registros de 32 bits... ¿por qué se almacena el resultado de multiplicar dos números de 16 bits concatenando registros de 16 bits? Razones históricas, había procesadores anteriores que sólo tenían registros de 16 bits y para almacenar 32 bits había que hacer esta concatenación. Para mantener el lenguaje máquina se ha mantenido esto.
 
 **DIV**
-**`div <algo>`** -> Instrucción de división sin signo. Esta instrucción sólo especifica el divisor, el dividendo es implícito y tiene tamaño doble al del divisor. El dividendo se obiene de %ax, %dx:%ax ó %edx:%eax (16 bits, 32 bits o 64 bits respectivamente). La instrucción devuelve dos resultados: cociente y resto. El cociente se almacena en %al, %ax o %eax. El resto se almacena en %ah, %dx o %edx
+**`div <algo>`** -> Instrucción de división sin signo. Esta instrucción sólo especifica el divisor, el dividendo es implícito y tiene tamaño doble al del divisor. El dividendo se obiene de %ax, %dx:%ax ó %edx:%eax (16 bits, 32 bits o 64 bits respectivamente). La instrucción devuelve dos resultados: cociente y resto. El cociente se almacena en %al, %ax o %eax. El resto se almacena en %ah, %dx o %edx.
+
+**IMUL**
+Instrucción de multiplicación con signo
+**`imul <algo>`** -> igual que mul.
+**`imul <factor1>, <factor2>`** -> El segundo operador es el destino donde se guarda el resultado y además este <factor2> debe ser uno de los registros de propósito general. Los dos operandos son del mismo tamaño, luego el resultado también se guarda en un registro del mismo tamaño que los factores, con lo cual hay un mayor riesgo de overflow. 
+**`imul <factor1>, <factor2>, <factor3>`** -> <factor1> debe ser una constante. <factor2> debe ser una posición de memoria o un registro. <factor3> es un registro de propósito general donde se guarda el resultado. En este caso pasa lo mismo con los tamaños que en el anterior. Como se solventa esto es realizando la multiplicación y obteniendo todos los bits del resultado y posteriormente los trunca para almacenar en destino.
+
+**IDIV**
+**`idiv <algo>`** -> Instrucción de división con signo. El comportamiento es igual que DIV (instrucción de división con signo) pero los factores son números enteros. 
 
 
 
