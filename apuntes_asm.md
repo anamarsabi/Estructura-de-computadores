@@ -111,3 +111,28 @@ La instruccion `pop` recibe un único operando y manipula siempre operandos de 3
 **`xchg <registro> <registro>` o `xchg <registro> <dato>`** -> Intercambia los valores de sus operandos. Al menos uno de los operandos debe ser de tipo registro. Esta instrucción utiliza un reguistro temporal interno del procesador para intercambiar los operandos.
 
 Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los flags de la palabra de estado.
+
+## Instrucciones aritméticas
+
+**ADD**
+**`add <sumando>, <sumando_destino>`** -> Recibe dos operando, los suma y los guarda en el segundo sumando(<sumando_destino>). Se machaca y se pierde el valor del segundo operando. 
+
+**SUB**
+**`sub <op1>, <op2>`** -> Resta <op2> - <op1> y el resultado se almacena en <op2>.
+
+**INC** Y **DEC**
+**`inc <algo>`** -> Esta instrucción recibe un único operando al que le suma el valor 1. Análogamente decrementando en uno el operando dado en el caso de **`dec <algo`**
+
+**NEG**
+**`neg <algo>`** -> Instrucción de cambio de signo, la operación que realiza es equivalente a multiplicar por -1. Se asume que el operando está codificado en complemento a 2. Esta instrucción asigna directamente el valor 1 al flag de acarreo.
+
+**MUL**
+**`mul <algo>`** -> Instrucción de multiplicación sin signo. Esta instrucción tiene dos operandos pero el segundo de ellos es implícito y dependiendo de los datos que maneje la operación serán: %al(8 bits = 1 Byte), %ax (2 bytes = 1 word) y %eax (4 bytes = Doubleword). Esta instrucción multiplica <algo>  por esos registros dependiendo del caso y almacena el resultado en %ax (si se multiplican dos números de 8 bits), %dx:%ax (si se multiplican dos números de 16 bits se almacena en el registro de 32bits resultante de concatenar los registros %dx y %ax, con %dx como parte más significativa), %edx:%eax (si se multiplican dos números de 32 bits se almacena en el registro de 64 bits resultante de concatenar estos dos registros con %edx como parte más significativa).
+
+Si hay registros de 32 bits... ¿por qué se almacena el resultado de multiplicar dos números de 16 bits concatenando registros de 16 bits? Razones históricas, había procesadores anteriores que sólo tenían registros de 16 bits y para almacenar 32 bits había que hacer esta concatenación. Para mantener el lenguaje máquina se ha mantenido esto.
+
+**DIV**
+**`div <algo>`** -> Instrucción de división sin signo. Esta instrucción sólo especifica el divisor, el dividendo es implícito y tiene tamaño doble al del divisor. El dividendo se obiene de %ax, %dx:%ax ó %edx:%eax (16 bits, 32 bits o 64 bits respectivamente). La instrucción devuelve dos resultados: cociente y resto. El cociente se almacena en %al, %ax o %eax. El resto se almacena en %ah, %dx o %edx
+
+
+
