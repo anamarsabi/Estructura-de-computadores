@@ -214,6 +214,26 @@ Si se fija el flag del acarreo de antemano, una rotación simple a través del a
 
 
 
+## Instrucciones de salto
+
+**JMP**
+**`jmp <algo>`** -> Instrucción de salto condicional: cambia la secuencia de ejecución del procesador, éste pasa ejecutar a continuación la instrucción almacenada a partir de la posición de memoria en el operando. 
+Hay más instrucciones de salto condicional específicas
+
+**CALL**
+**`call <algo`** -> Instrucción de llamada a subrutina: invoca a la subrutina cuya primera instrucción está en la posición de memoria que indica el operando.  Deposita en la cima de la pila la dirección de retorno, es decir, la dirección de la instrucción que sigue a esta en el flujo de ejecución.
+
+**RET**
+**`ret `** -> Instrucción de retorno de subrutina: retorna la ejecución a la instrucción cuya dirección está almacenada en la cima de la pila. Esta dirección se saca de la pila. 
+
+
+## Instrucciones de comparación y comprobación
+
+**CMP**
+**`cmp <algo1>, <algo2>`** -> Instrucción de comparación. Resta el primer operando al segundo y modifica los flags con el resultado, el cual no se almacena en ningún lugar. Estos flags que han sido modificados se pueden usar para cambiar el flujo de ejecución mediante una isntrucción de salto condicional.
+
+**TEST**
+**`test <algo1>, <algo2>`** -> Instrucción de comprobación.  Realiza la conjunción bit a bit de los operandos y modifica los flags con el resultado, el cual tampoco que almacena en ningún lugar. 
 
 
 
