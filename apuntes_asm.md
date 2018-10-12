@@ -182,21 +182,22 @@ Instrucción de multiplicación con signo
 **`sal <algo1>, <algo2>`** ó **`sar <algo1>, <algo2>`** -> Desplazamiento aritmético: desplaza el contenido del segundo operando a izquierda (sal, L de left) ó derecha (sar, R de right) tantas posiciones como indica el primer operando. En el caso de SAL, para cada desplazamient el bit más significativo se carga en el flag CF y el menos significativo se pone a 0. Para SAR esto es al contrario, el bit menos significativo se carga en el flag CF y el nuevo bit más significativo se pone al mismo valor del anterior (extensión de signo).  Esta instrucción no introduce ceros por la izquierda del operando, sino que replica el bit de mayor peso (bit de signo) en cada desplazamiento.
 SAR sirve para dividir un operando entre una potencia entera de 2.
 
-*Añadir imagen*
+
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/sar.jpg?raw=true)
 
 SAL sirve para multiplicar un operando, interpretado con signo, por una potencia de 2. Como esta instrucción equivale a multiplicar <algo2> * 2^<algo1>. El microprocesador detecta si se produce overflow al realizar el desplazamiento, registrándose este hecho en el bit OF del registro de estado. 
 
-*Añadir imagen*
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/shl.jpg?raw=true)
 
 **SHL/SHR**
 **`shl <algo1>, <algo2>`** ó **`shr <algo1>, <algo2>`** -> Desplazamiento lógico.
 SHL es exactamente idéntico a SAL. Su objetivo es el mismo, multiplicar un operando por una potencia de 2. sal y shl son, de hecho, la misma instrucción y se codifican con el mismo código máquina.
 
-*Añadir imagen*
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/shl.jpg?raw=true)
 
 SHR desplaza los bits del operando destino a la derecha tantos bits como indique el operando fuente. 
 
-*Añadir imagen*
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/shr.jpg?raw=true)
 
 **RCL/RCR**
 **`rcl <algo1>, <algo2>`** ó **`rcr <algo1>, <algo2>`** -> Instrucción de rotación con acarreo: rota el contenido del segundo operando concatenado con el flag CF a la izquierda (rcl) o a la derecha (rcr) tantas posiciones como indica el primer operando. 
@@ -207,12 +208,13 @@ Esta instrucción se utiliza para posicionar un determinado bit de un dato en el
 Si se fija el flag del acarreo de antemano, una rotación simple a través del acarreo puede simular un desplazamiento lógico o aritmético de una posición. Por esta razón, algunos microcontroladores solo tienen las funciones de rotar y rotar a través del acarreo y no se preocupan de tener instrucciones de desplazamiento aritmético o lógico.
 
 
-*Añadir imagen*
+
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/RCL.png?raw=true)
 
 **ROR/ROL**
 **`ror <algo1>, <algo2>`** ó **`rol <algo1>, <algo2>`** -> Instrucción de rotación sin acarreo: rota el contenido del segundo operando a la izquierda (rol) o a la derecha (ror) tantas posiciones como indica el primer operando. Si el desplazamiento es a la izquierda, para cada desplazamiento el bit más significativo pasa a ser el menos significativo. Si el desplazamiento es a la derecha, para cada desplazamiento el bit menos significativo pasa a ser el más significativo. Con estas instrucciones se consigue una estructura circular como si los extremos izquierdo y derecho del registro estuvieran conectados. Esta instrucción es frecuentemente usada en criptografía digital.
 
-
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/ROL.png?raw=true)
 
 ## Instrucciones de salto
 
