@@ -56,15 +56,23 @@ Punto de entrada ASM (como main en C)
 
 
 Todo programa ensamblador debe seguir el siguiente patrón:
+
 `.data				#Comienzo del segmento de datos`
+
 `<datos del programa>`
 
+
 `.section .text		#Comienzo del código`
+
 `.global _start`
+
 `_start:				#Comienza "main"`
+
 `<instrucciones>`
 
+
 `ret					#obligatorio`
+
 
 Una palabra seguida de **:** es la forma de definir una etiqueta o nombre de algo que luego se utilizará en el código del programa.
 El compilador *gcc* asume que el punto de comienzo de programa está marcado por la presencia de  la etiqueta **main**. Por tanto, al escribir un programa que sea traducido por gcc se debe definir la etiqueta main en el lugar del código que contenga su primera instrucción máquina.
@@ -79,7 +87,9 @@ Todo programa ensamblador debe comenzar y terminar con isntrucciones de `push` y
 ## Instrucciones de movimiento de datos
 
 **MOV**
+
 **`mov <source>, <dest>`**
+
 `mov %regA, %regB` -> Mueve el contenido de %regA al registro %regB
 
 `mov $inm, %reg` -> Mueve inm (valor numérico) al registro %reg
@@ -167,18 +177,23 @@ Instrucción de multiplicación con signo
 
 **`idiv <algo>`** -> Instrucción de división con signo. El comportamiento es igual que DIV (instrucción de división con signo) pero los factores son números enteros. 
 
+
 ## Instrucciones lógicas
 
 **AND**,  **OR** Y **XOR**
+
 **`and <algo1>, <algo2>`** -> Realiza la conjunción bit a bit del contenido de los operandos (recordamos que estos operandos pueden ser registros de los que se usará el contenido, constantes o posiciones de memoria). La conjunción bit a bit consiste en hacer la conjunción de los correspondientes bits de ambos operandos. Es necesario que ambos operandos tengan el mismo tamaño. Análogamente, con la disyunción bit a bit para el caso de **`or <algo1>, <algo2>`** y la disyunción exclusiva en **`xor <algo1>. <algo2>`**.
 
+
 **NOT**
+
 **`not <algo>`** -> Instrucción de negación: niega bit a bit el operando. No confundir con NEG. NOT es una instrucción lógica y NEG una instrucción aritmética que consiste en multiplicar por -1.
 
 
 ## Instrucciones de desplazamiento
 
 **SAL/SAR**
+
 **`sal <algo1>, <algo2>`** ó **`sar <algo1>, <algo2>`** -> Desplazamiento aritmético: desplaza el contenido del segundo operando a izquierda (sal, L de left) ó derecha (sar, R de right) tantas posiciones como indica el primer operando. En el caso de SAL, para cada desplazamient el bit más significativo se carga en el flag CF y el menos significativo se pone a 0. Para SAR esto es al contrario, el bit menos significativo se carga en el flag CF y el nuevo bit más significativo se pone al mismo valor del anterior (extensión de signo).  Esta instrucción no introduce ceros por la izquierda del operando, sino que replica el bit de mayor peso (bit de signo) en cada desplazamiento.
 SAR sirve para dividir un operando entre una potencia entera de 2.
 
@@ -189,7 +204,9 @@ SAL sirve para multiplicar un operando, interpretado con signo, por una potencia
 
 ![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/shl.jpg?raw=true)
 
+
 **SHL/SHR**
+
 **`shl <algo1>, <algo2>`** ó **`shr <algo1>, <algo2>`** -> Desplazamiento lógico.
 SHL es exactamente idéntico a SAL. Su objetivo es el mismo, multiplicar un operando por una potencia de 2. sal y shl son, de hecho, la misma instrucción y se codifican con el mismo código máquina.
 
@@ -199,7 +216,9 @@ SHR desplaza los bits del operando destino a la derecha tantos bits como indique
 
 ![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/shr.jpg?raw=true)
 
+
 **RCL/RCR**
+
 **`rcl <algo1>, <algo2>`** ó **`rcr <algo1>, <algo2>`** -> Instrucción de rotación con acarreo: rota el contenido del segundo operando concatenado con el flag CF a la izquierda (rcl) o a la derecha (rcr) tantas posiciones como indica el primer operando. 
 RCL: para cada desplazamiento el bit más significativo se carga en el flag CF y éste pasa a ser el bit menos significativo.
 RCR: para cada desplazamiento el bit menos significativo se carga en el flag CF y  éste pasa a ser el bit más significativo.
@@ -208,33 +227,40 @@ Esta instrucción se utiliza para posicionar un determinado bit de un dato en el
 Si se fija el flag del acarreo de antemano, una rotación simple a través del acarreo puede simular un desplazamiento lógico o aritmético de una posición. Por esta razón, algunos microcontroladores solo tienen las funciones de rotar y rotar a través del acarreo y no se preocupan de tener instrucciones de desplazamiento aritmético o lógico.
 
 
-
 ![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/RCL.png?raw=true)
 
+
 **ROR/ROL**
+
 **`ror <algo1>, <algo2>`** ó **`rol <algo1>, <algo2>`** -> Instrucción de rotación sin acarreo: rota el contenido del segundo operando a la izquierda (rol) o a la derecha (ror) tantas posiciones como indica el primer operando. Si el desplazamiento es a la izquierda, para cada desplazamiento el bit más significativo pasa a ser el menos significativo. Si el desplazamiento es a la derecha, para cada desplazamiento el bit menos significativo pasa a ser el más significativo. Con estas instrucciones se consigue una estructura circular como si los extremos izquierdo y derecho del registro estuvieran conectados. Esta instrucción es frecuentemente usada en criptografía digital.
 
 ![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/ROL.png?raw=true)
 
+
 ## Instrucciones de salto
 
 **JMP**
+
 **`jmp <algo>`** -> Instrucción de salto condicional: cambia la secuencia de ejecución del procesador, éste pasa ejecutar a continuación la instrucción almacenada a partir de la posición de memoria en el operando. 
 Hay más instrucciones de salto condicional específicas
 
 **CALL**
+
 **`call <algo`** -> Instrucción de llamada a subrutina: invoca a la subrutina cuya primera instrucción está en la posición de memoria que indica el operando.  Deposita en la cima de la pila la dirección de retorno, es decir, la dirección de la instrucción que sigue a esta en el flujo de ejecución.
 
 **RET**
+
 **`ret `** -> Instrucción de retorno de subrutina: retorna la ejecución a la instrucción cuya dirección está almacenada en la cima de la pila. Esta dirección se saca de la pila. 
 
 
 ## Instrucciones de comparación y comprobación
 
 **CMP**
+
 **`cmp <algo1>, <algo2>`** -> Instrucción de comparación. Resta el primer operando al segundo y modifica los flags con el resultado, el cual no se almacena en ningún lugar. Estos flags que han sido modificados se pueden usar para cambiar el flujo de ejecución mediante una isntrucción de salto condicional.
 
 **TEST**
+
 **`test <algo1>, <algo2>`** -> Instrucción de comprobación.  Realiza la conjunción bit a bit de los operandos y modifica los flags con el resultado, el cual tampoco que almacena en ningún lugar. 
 
 
