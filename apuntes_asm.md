@@ -281,9 +281,9 @@ Un registro contador del programa
  %eax, %ecx, %edx, %esi, %edi, %ebp y %esp. 
 
 Todos ellos tiene un tamaño de 32 bits y su principal cometido es almacenar datos temporales necesarios para la ejecución de programas. En estos registrso se guardan temporalmente aquellos datos que necesita el procesador más a menudo, de esta forma se obtiene un mejor rendimiento en la ejecución. Por ejemplo, si un dato se utiliza varias veces seguidas, en lugar de llerlo de memoria cada vez es mejor almacenarlo al principio en uno de los registros de propósito general y referirse a esa copia cada vez que sea necesario. El procesador permite referirse a ciertas porciones de los registros de propósito general con nombres diferentes. Permite manipular los 16 bits de menos peso suprimiendo la "e" del comienzo del nombre del registro. Para los registros %eax, %ebx, %ecx, %edx se permite manipular los dos bytes de menos peso de forma independiente suprimiendo la "e" y sustituyendo la "x" por "h" para el byte de más peso o "l" para el de menos peso. 
-*Añadir imagen*
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/Selecci%C3%B3n_041.png)
 
-** Registro de estado y control **
+**Registro de estado y control**
 
 El registro de estado y control es el registro de estado en los microprocesadores Intel x86 que contiene el estado actual del procesador. Este registro es de 16 bits de ancho. Sus sucesores son los registros EFLAGS Y RFLAGS de 32 bits y 64 bits respectivamente.  Por lo tanto, el registro de estado y control de la arquitectura de IA-32 es EFLAGS. De los 32 bits tan solo 18 de llos contienen información sobre el estado y control, el resto contienen un valor fijo.
 Durante la ejecución de isntrucciones existen situaciones especiales que convienen ser reflejadas en un registro para su posible consulta.  Aparte de las condiciones de funcionamiento, existe un conjunto de funcionalidades que es preciso activar o desactivar en ciertos momentos de la ejecución de un procesador. Por ejemplo, la arquitectura IA-32 permite que una isntrucción sea interrumpida y se pase a ejecutar momentáneamente un conjunto de instrucciones , mediante un bit de control de permite o prohibe que estas interrupciones se produzcan.
