@@ -265,3 +265,41 @@ Hay más instrucciones de salto condicional específicas
 
 
 
+
+## Registros enteros 
+
+Los registros son circuitos digitales internos del procesador que se comportan igual que las celdas de memoria, es decir, permiten las operaciones de lectura y escritura de datos pero a una velocidad mucho mayor, pues no requieren la comunicación con ningún circuito externo al procesador. Los registros que ofrece un procesador se identifican por su nombre y son susceptibles de ser utilizados al escribir programas en ensamblador. 
+
+La arquitectura IA-32 ofrece 16 registros básicos para la ejecución de programas:
+6 registros de segmento
+Un registro de estado y control
+Un registro contador del programa
+8 registros de propósito general
+
+**Registros de propósito general**
+
+ %eax, %ecx, %edx, %esi, %edi, %ebp y %esp. 
+
+Todos ellos tiene un tamaño de 32 bits y su principal cometido es almacenar datos temporales necesarios para la ejecución de programas. En estos registrso se guardan temporalmente aquellos datos que necesita el procesador más a menudo, de esta forma se obtiene un mejor rendimiento en la ejecución. Por ejemplo, si un dato se utiliza varias veces seguidas, en lugar de llerlo de memoria cada vez es mejor almacenarlo al principio en uno de los registros de propósito general y referirse a esa copia cada vez que sea necesario. El procesador permite referirse a ciertas porciones de los registros de propósito general con nombres diferentes. Permite manipular los 16 bits de menos peso suprimiendo la "e" del comienzo del nombre del registro. Para los registros %eax, %ebx, %ecx, %edx se permite manipular los dos bytes de menos peso de forma independiente suprimiendo la "e" y sustituyendo la "x" por "h" para el byte de más peso o "l" para el de menos peso. 
+*Añadir imagen*
+
+** Registro de estado y control **
+
+El registro de estado y control es el registro de estado en los microprocesadores Intel x86 que contiene el estado actual del procesador. Este registro es de 16 bits de ancho. Sus sucesores son los registros EFLAGS Y RFLAGS de 32 bits y 64 bits respectivamente.  Por lo tanto, el registro de estado y control de la arquitectura de IA-32 es EFLAGS. De los 32 bits tan solo 18 de llos contienen información sobre el estado y control, el resto contienen un valor fijo.
+Durante la ejecución de isntrucciones existen situaciones especiales que convienen ser reflejadas en un registro para su posible consulta.  Aparte de las condiciones de funcionamiento, existe un conjunto de funcionalidades que es preciso activar o desactivar en ciertos momentos de la ejecución de un procesador. Por ejemplo, la arquitectura IA-32 permite que una isntrucción sea interrumpida y se pase a ejecutar momentáneamente un conjunto de instrucciones , mediante un bit de control de permite o prohibe que estas interrupciones se produzcan.
+Las condiciones que representan los bits más importantes de este registro son:
+
+*CF -> Bit de acarreo*: Su valor es 1 si una operación aritmética con naturales ha producido acarreo. Se utiliza para detectar situaciones de desbordamiento.
+
+*PF -> Bit de paridad*:  Su valor es 1 si el byte menos significativo de una operación aritmética contiene un número impar de unos.
+
+*AF -> Bit de ajuste*: Su valor es 1 si se produce acarreo : en operaciones aritméticas en la codificación BCD(binary coded decimal: representar números decimales en el sistema binario donde cada dígito decimal es codificado con una secuencia de 4 bits).
+
+*ZF -> Bit de cero*: Su valor es 1 si ele resultado de la última operación aritmética ha sido cero.
+
+*SF -> Bit de signo*: su valor es idéntico al bit más significativo del resultado que corresponde con el bit de signo, cero si es positivo y 1 si es negativo.
+
+*OF -> Bit de desbordamiento*: Su valor es 1 si el entero obtenido como resultado no puede ser rrepresentado en complemento a 2 con el número de bits utilizado.
+
+El valor de los bits de estado fluctúa continuamente dependiendo de los resultados aritméticos producidos a lo largo de la ejecución del programa. El valor de estos bits modifican el comportamiento de un subconjunto muy relevante de instrucciones del procesador, entre ellas los saltos condicionales. 
+
