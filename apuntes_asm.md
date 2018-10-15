@@ -46,9 +46,9 @@ Indica el cambio de sección. A partir de ahí comenzamos a emitir código.
 
 *.global _start*
 Muestra punto de entrada a ld.
-		*ld: enlazador de GNU. ld combina un número de ficheros 			   objeto y archivos, reubica sus datos y enlaza referencias
-       de  símbolos.  A  menudo el último paso en el proceso de construcción de un nuevo programa
-       compilado para su ejecución es una llamada a ld.*
+​		*ld: enlazador de GNU. ld combina un número de ficheros 			   objeto y archivos, reubica sus datos y enlaza referencias
+​       de  símbolos.  A  menudo el último paso en el proceso de construcción de un nuevo programa
+​       compilado para su ejecución es una llamada a ld.*
 
 *_start:*
 Punto de entrada ASM (como main en C)
@@ -128,6 +128,12 @@ La instruccion `pop` recibe un único operando y manipula siempre operandos de 3
 **`xchg <registro> <registro>` o `xchg <registro> <dato>`** -> Intercambia los valores de sus operandos. Al menos uno de los operandos debe ser de tipo registro. Esta instrucción utiliza un reguistro temporal interno del procesador para intercambiar los operandos.
 
 Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los flags de la palabra de estado.
+
+
+
+**LEAL**
+
+**`leal <algo1>, <algo2>`** -> pendiente completar
 
 
 ## Instrucciones aritméticas
@@ -229,7 +235,6 @@ Si se fija el flag del acarreo de antemano, una rotación simple a través del a
 
 ![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/RCL.png?raw=true)
 
-
 **ROR/ROL**
 
 **`ror <algo1>, <algo2>`** ó **`rol <algo1>, <algo2>`** -> Instrucción de rotación sin acarreo: rota el contenido del segundo operando a la izquierda (rol) o a la derecha (ror) tantas posiciones como indica el primer operando. Si el desplazamiento es a la izquierda, para cada desplazamiento el bit más significativo pasa a ser el menos significativo. Si el desplazamiento es a la derecha, para cada desplazamiento el bit menos significativo pasa a ser el más significativo. Con estas instrucciones se consigue una estructura circular como si los extremos izquierdo y derecho del registro estuvieran conectados. Esta instrucción es frecuentemente usada en criptografía digital.
@@ -261,7 +266,7 @@ Hay más instrucciones de salto condicional específicas
 
 **TEST**
 
-**`test <algo1>, <algo2>`** -> Instrucción de comprobación.  Realiza la conjunción bit a bit de los operandos y modifica los flags con el resultado, el cual tampoco que almacena en ningún lugar. 
+**`test <algo1>, <algo2>`** -> Instrucción de comprobación.  Realiza la conjunción bit a bit de los operandos y modifica los flags con el resultado, el cual tampoco que almacena en ningún lugar.  Muchas veces se hace un salto condicional después.
 
 
 
@@ -281,7 +286,16 @@ Un registro contador del programa
  %eax, %ecx, %edx, %esi, %edi, %ebp y %esp. 
 
 Todos ellos tiene un tamaño de 32 bits y su principal cometido es almacenar datos temporales necesarios para la ejecución de programas. En estos registrso se guardan temporalmente aquellos datos que necesita el procesador más a menudo, de esta forma se obtiene un mejor rendimiento en la ejecución. Por ejemplo, si un dato se utiliza varias veces seguidas, en lugar de llerlo de memoria cada vez es mejor almacenarlo al principio en uno de los registros de propósito general y referirse a esa copia cada vez que sea necesario. El procesador permite referirse a ciertas porciones de los registros de propósito general con nombres diferentes. Permite manipular los 16 bits de menos peso suprimiendo la "e" del comienzo del nombre del registro. Para los registros %eax, %ebx, %ecx, %edx se permite manipular los dos bytes de menos peso de forma independiente suprimiendo la "e" y sustituyendo la "x" por "h" para el byte de más peso o "l" para el de menos peso. 
-![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/Selecci%C3%B3n_041.png)
+
+![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/Selecci%C3%B3n_041.png?raw=true)
+
+Atención! Los registros %esp y %ebp son los que trabajan con la pila, luego mejor no modificarlos manualmente.
+
+Pasar los argumentos a través de pila permite hacer recursividad. 
+
+
+
+
 
 **Registro de estado y control**
 
