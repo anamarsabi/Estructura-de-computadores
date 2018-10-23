@@ -73,7 +73,6 @@ Todo programa ensamblador debe seguir el siguiente patrón:
 
 `ret					#obligatorio`
 
-
 Una palabra seguida de **:** es la forma de definir una etiqueta o nombre de algo que luego se utilizará en el código del programa.
 El compilador *gcc* asume que el punto de comienzo de programa está marcado por la presencia de  la etiqueta **main**. Por tanto, al escribir un programa que sea traducido por gcc se debe definir la etiqueta main en el lugar del código que contenga su primera instrucción máquina.
 
@@ -133,7 +132,9 @@ Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los fl
 
 **LEAL**
 
-**`leal <algo1>, <algo2>`** -> pendiente completar
+**`leal <source>, <destination>, k`** -> Calcula expresiones aritmeticas de la forma x+k*y.  Donde  x=source , y =destination y k=1,2,4,8. Leal guarda en el registro destino el valor de la operación artmética sin meterse en memoria. Calcula direcciones sin hacer referencias a memoria. Se diferencia de mov en que esta instrucción, mov, almacena el contenido que hay en una dirección de memoria.
+
+
 
 
 ## Instrucciones aritméticas
