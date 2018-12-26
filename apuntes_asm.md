@@ -1,5 +1,11 @@
-# PRÁCTICAS ESTRUCTURA DE COMPUTADORES
-# ENSAMBLADOR Básico
+# ESTRUCTURA DE COMPUTADORES
+# Ensamblador básico
+
+### Ana Martínez Sabiote
+
+**2º DGIIM**. Curso 2018/2019
+
+
 
 *http://ocw.uc3m.es/ingenieria-telematica/arquitectura-de-ordenadores/lecturas/html*
 
@@ -128,8 +134,6 @@ La instruccion `pop` recibe un único operando y manipula siempre operandos de 3
 
 Ninguna de estas instrucciones de movimiento de datos modifica ninguno de los flags de la palabra de estado.
 
-
-
 **LEAL**
 
 **`leal <source>, <destination>, k`** -> Calcula expresiones aritmeticas de la forma x+k*y.  Donde  x=source , y =destination y k=1,2,4,8. Leal guarda en el registro destino el valor de la operación artmética sin meterse en memoria. Calcula direcciones sin hacer referencias a memoria. Se diferencia de mov en que esta instrucción, mov, almacena el contenido que hay en una dirección de memoria.
@@ -179,7 +183,6 @@ Instrucción de multiplicación con signo
 
 **`imul <factor1>, <factor2>, <factor3>`** -> <factor1> debe ser una constante. <factor2> debe ser una posición de memoria o un registro. <factor3> es un registro de propósito general donde se guarda el resultado. En este caso pasa lo mismo con los tamaños que en el anterior. Como se solventa esto es realizando la multiplicación y obteniendo todos los bits del resultado y posteriormente los trunca para almacenar en destino.
 
-
 **IDIV**
 
 **`idiv <algo>`** -> Instrucción de división con signo. El comportamiento es igual que DIV (instrucción de división con signo) pero los factores son números enteros. 
@@ -222,7 +225,6 @@ SHL es exactamente idéntico a SAL. Su objetivo es el mismo, multiplicar un oper
 SHR desplaza los bits del operando destino a la derecha tantos bits como indique el operando fuente. 
 
 ![alt](https://github.com/anamarsabi/Estructura-de-computadores/blob/master/images/shr.jpg?raw=true)
-
 
 **RCL/RCR**
 
@@ -317,4 +319,6 @@ Las condiciones que representan los bits más importantes de este registro son:
 *OF -> Bit de desbordamiento*: Su valor es 1 si el entero obtenido como resultado no puede ser rrepresentado en complemento a 2 con el número de bits utilizado.
 
 El valor de los bits de estado fluctúa continuamente dependiendo de los resultados aritméticos producidos a lo largo de la ejecución del programa. El valor de estos bits modifican el comportamiento de un subconjunto muy relevante de instrucciones del procesador, entre ellas los saltos condicionales. 
+
+
 
